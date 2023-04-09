@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { createContext, useState } from 'react';
+// import Facebook from './Components/Facelogy';
+import './css/App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import FbLogin from './Facelogy';
 
-function App() {
+export const ResponseContext = createContext(null)
+const App = (props) => {
+const [data, setData] = useState({})
+const appId=props.appId
+const redirect=props.redirect
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ResponseContext.Provider value={{data,setData}}>
+      <BrowserRouter>
+      <div>
+      <Routes>
+          {/* <Route exact path="/" element={<Facebook appId={process.env.REACT_APP_FACEBOOKID} redirect="/"/>}/> */}
+          <Route exact path="/" element={<FbLogin appId={appId} redirect={redirect}/>}/>
+
+      </Routes>
+      </div>
+          
+      </BrowserRouter>
+      </ResponseContext.Provider>
     </div>
   );
 }
