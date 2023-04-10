@@ -19,7 +19,7 @@ const mystyle= {
 
 
 
-const FbLogin = (props) => {
+const Facelogy = (props) => {
     
     const navigate = useNavigate()
     // const [data, setData] = useState({})
@@ -87,10 +87,9 @@ const FbLogin = (props) => {
 
   return (
     <div>
-      <h1>Here</h1>
       <button className="fbtn" onClick={handleClick}>Login</button>
     </div>
   )
 }
 
-export default FbLogin
+export default Facelogy;
