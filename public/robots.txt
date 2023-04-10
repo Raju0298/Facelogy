@@ -4,3 +4,4 @@ Disallow:
 
     // "start": "react-scripts start",
     // "build": "react-scripts build",
+    //"transpile": "NODE_ENV=production npx babel --out-dir ../build --relative --copy-files src",

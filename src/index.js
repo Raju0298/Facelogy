@@ -1,11 +1,11 @@
-import React, { createContext, useState } from 'react';
-import ReactDOM from 'react-dom/client';
+// import React, { createContext, useState } from 'react';
+// import ReactDOM from 'react-dom/client';
 import './css/index.css';
 import Facelogy from './Facelogy';
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import reportWebVitals from './reportWebVitals'
-import App from './App';
+// import { BrowserRouter, Routes, Route } from 'react-router-dom';
+// import reportWebVitals from './reportWebVitals'
+// import App from './App';
 // export {default as FbLogin} from "./Components/Facebook"
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));

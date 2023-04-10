@@ -1,6 +1,6 @@
 {
   "name": "facelogy",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "private": false,
   "dependencies": {
     "@babel/core": "^7.21.4",
