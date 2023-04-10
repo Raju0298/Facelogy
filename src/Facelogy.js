@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import './css/Facebook.css'
 
 
@@ -21,7 +21,7 @@ const mystyle= {
 
 const Facelogy = (props) => {
     
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     // const [data, setData] = useState({})
     useEffect(() => {
         // const fbid = process.env.REACT_APP_FACEBOOKID
@@ -67,7 +67,8 @@ const Facelogy = (props) => {
             console.log('Welcome!  Fetching your information.... ');
             callApi()
             setTimeout(() => {
-                navigate(props.redirect)
+                // navigate(props.redirect)
+                window.location.href = props.redirect
             }, 1000);
         } else {
              console.log('User cancelled login or did not fully authorize.');
