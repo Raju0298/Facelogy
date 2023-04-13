@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 // import Facebook from './Components/Facelogy';
 import './css/App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import FbLogin from './Facelogy';
+import Facelogy from './Facelogy';
 
 export const ResponseContext = createContext(null)
 const App = (props) => {
@@ -16,7 +16,7 @@ const redirect=props.redirect
       <div>
       <Routes>
           {/* <Route exact path="/" element={<Facebook appId={process.env.REACT_APP_FACEBOOKID} redirect="/"/>}/> */}
-          <Route exact path="/" element={<FbLogin appId={appId} redirect={redirect}/>}/>
+          <Route exact path="/" element={<Facelogy appId={appId} redirect={redirect}/>}/>
 
       </Routes>
       </div>

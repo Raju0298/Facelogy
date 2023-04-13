@@ -4,6 +4,40 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+##  How To Use the Library 
+
+Install package using 
+
+### `npm i facelogy`
+
+Once Installed import the package using 
+
+### ` import Facelogy from 'facelogy' `
+
+Once imported use the package by providing it with AppID ( that is provided from developers.meta.com you have to login
+and get the AppID ) and redirect (that is where you want the code to route to once you get the data).
+AppID and Redirect props (property) are necessary for working with the package.
+
+You Can Use the package
+
+
+```
+
+import React from 'react';
+import Facelogy from 'facelogy'
+
+const Example = () => {
+  return (
+<Facelogy appId="your app Id in string type" redirect="/"></Facelogy>
+
+    )
+}
+ default Example
+
+```
+
+## Thats All!  Cheers!!!
+
 In the project directory, you can run:
 
 ### `npm start`
