@@ -82,6 +82,7 @@ const Facelogy = (props) => {
           window.FB.api('/me', {locale: 'en_US', fields: 'id,first_name,last_name,email,picture'},
               function(response) {
               //  setData(response)
+               localStorage.setItem("data", response)
                console.log(response);
              });   
     }
