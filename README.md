@@ -2,39 +2,95 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-##  How To Use the Library 
+##  Install
 
 Install package using 
 
-### `npm i facelogy`
+```
+npm install facelogy
+or 
+npm install --save facelogy 
+```
 
 Once Installed import the package using 
 
 ### ` import Facelogy from 'facelogy' `
 
-Once imported use the package by providing it with AppID ( that is provided from developers.meta.com you have to login
-and get the AppID ) and redirect (that is where you want the code to route to once you get the data).
-AppID and Redirect props (property) are necessary for working with the package.
+### Props to be passed
 
-You Can Use the package
+Once imported use the package by providing it with 
+1. `AppID` ( that is provided from developers.meta.com you have to login and get the AppID ) this is `mandatory` 
+2. Two Callbacks that are `onLoginSuccess` and `onLoginFailure` these are `not mandatory` but they are the ones 
+that actually retreives data or shows error if something goes wrong.
+3. There are some smaller props that are `not mandatory` such as : 
+        i. localStorage : That sets the userData in localstorage for you using `user` as the key you can retrieve it
+                              by localStorage.getItem('user')
 
+        ii. briefConsoleLog : This will display userData in console in a systematic form please try it out.
+        iii. handleResponse : A callback to get userData as response
+        iv. Eg. 
+        ```
+              <Facebook 
+                  appId='eg. 1234567532356445' 
+                  onLoginSuccess={handleSuccess} 
+                  onLoginFailure={handleFailure} 
+                  localStorage 
+                  briefConsoleLog 
+                  handleResponse={handleCallback} 
+              /> 
+        ```
+
+### Usage
 
 ```
 
 import React from 'react';
 import Facelogy from 'facelogy'
 
+
+// onLoginSuccess return 2 parameters response and the status .
+/  The `response` is the userdata and 
+// The `status` specifies whether you are connected or not that is it
+// return connected once successful login is done
+
+const handleLoginSuccess = (response, status) =>{
+  //Fyii here you can also handle routing using useNavigate
+  console.log(response)
+}
+
+
+//onLoginFailure returns an error response if something goes wrong
+
+const handleLoginFailure = (err) => {
+  console.log(err)
+}
+
 const Example = () => {
   return (
-<Facelogy appId="your app Id in string type" redirect="/"></Facelogy>
-
-    )
+<Facelogy 
+    appId="your appId here in String format(eg. '45678987654587654')" 
+    onLoginSuccess={handleLoginSuccess} 
+    onLoginFailure={handleLoginFailure}
+/>
+  )
 }
- default Example
+export default Example
 
 ```
+
+### Note: Essential Things To Remember 
+
+
+1. Create a .env file in your root project that is alongside src folder not within it and store in it  ` HTTPS=true ` 
+and save it, as facebook SDK now only works on https
+2. You have to create a developer.facebook account and create a project to get AppID and also check ` Yes ` on 
+' Login with Javascript SDK ' by going to 
+Facebook Login ( On the Sidebar from the bottom ) ==> Settings ==> Login with Javascript SDK 
+also you have to put in allowed  domains for eg I added ` https://localhost:3000/ ` while in development 
+you need to add your own it is recommended to allow specific domains only
+
+
 
 ## Thats All!  Cheers!!!
 

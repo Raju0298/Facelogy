@@ -7,7 +7,7 @@ const Facelogy = (props) => {
     window.fbAsyncInit = function () {
       window.FB.init({
         appId: props.appId,
-        cookie: true,
+        cookie: false,
         xfbml: true,
         version: "v16.0",
       });
@@ -32,9 +32,16 @@ const Facelogy = (props) => {
 
   const callApi = (status, res) => {
     const token = res.accessToken
+    const stoken = localStorage.getItem('accessToken');
+    if(stoken) {
+      localStorage.removeItem('accessToken');
+      localStorage.clear();
+    }
+    localStorage.setItem('accessToken', token)
+    // const token = res.accessToken
     const endpoint = "/me";
     const method = "GET";
-    const params = {locale: 'en_US', fields: "id,first_name,last_name,email,picture", access_token: token};
+    const params = {locale: 'en_US', fields: "id,first_name,last_name,email,picture", access_token: localStorage.getItem('accessToken')};
 
     window.FB.api(endpoint,method,params,
         function(response) {
@@ -49,7 +56,7 @@ const Facelogy = (props) => {
             console.log('First Name: ' + response.first_name);
             console.log('Last Name: ' + response.last_name);
             console.log("Email: " + response.email);
-            console.log("Image URL: " + response.picture);
+            console.log("Image URL: " + JSON.stringify(response.picture));
         }
         props.onLoginSuccess(response, status);
         // console.log(response);
