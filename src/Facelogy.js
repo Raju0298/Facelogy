@@ -33,6 +33,17 @@ const Facelogy = (props) => {
   const callApi = (status, res) => {
     const token = res.accessToken
     const stoken = localStorage.getItem('accessToken');
+    if(!stoken){
+      props.onLoginFailure('User not logged in');
+      return;
+    }
+
+    if(stoken !== token){
+      localStorage.removeItem('accessToken');
+      props.onLoginFailure('User access token expired or invalidated');
+      return;
+    }
+
     if(stoken) {
       localStorage.removeItem('accessToken');
       localStorage.clear();
@@ -63,6 +74,8 @@ const Facelogy = (props) => {
        });   
 }
 
+
+
   const handleLogin = () => {
     window.FB.login(
       function (response) {
@@ -74,12 +87,9 @@ const Facelogy = (props) => {
       },
       { scope: "public_profile,email" }
     );
-
-
-
-
  
   };
+
 
   return (
     <button className="fbtn" onClick={handleLogin}>Login with Facebook</button>
