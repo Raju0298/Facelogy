@@ -1,5 +1,5 @@
 import React from "react";
-import {render,  fireEvent, screen} from "@testing-library/react";
+import {render,  fireEvent, screen, waitFor} from "@testing-library/react";
 import {  MemoryRouter, useNavigate } from 'react-router-dom';
 
 // import Facelogy, { ResponseContext } from '../Facelogy';
@@ -101,17 +101,17 @@ describe("unit-test", () => {
     //     expect(login(username))
     // })
 
-    const mockResponse = {
-        id: '1234567908',
-        first_name: 'Kishan',
-        last_name: 'Shetty',
-        email: 'kishancan@gmail.com',
-        picture: {
-            data: {
-                url: 'https://example.com/picture.jpg',
-            },
-        },
-    };
+    // const mockResponse = {
+    //     id: '1234567908',
+    //     first_name: 'Kishan',
+    //     last_name: 'Shetty',
+    //     email: 'kishancan@gmail.com',
+    //     picture: {
+    //         data: {
+    //             url: 'https://example.com/picture.jpg',
+    //         },
+    //     },
+    // };
 
     window.FB = {
         login: jest.fn(),
@@ -128,28 +128,52 @@ describe("unit-test", () => {
         const onLoginSuccessMock = jest.fn();
         const onLoginFailureMock = jest.fn();
 
-        window.FB.login = jest.fn((callback) => callback({authResponse: {accessToken: '1234567890'}}))
-        const { getByText } = render(<MemoryRouter><Facelogy/></MemoryRouter>);  
+        window.FB.login = jest.fn((callback) => callback({authResponse: {accessToken: '1234567890'}}));
+        const { getByText } = render(<MemoryRouter><Facelogy onLoginSuccess={onLoginSuccessMock} onLoginFailure={onLoginFailureMock} /></MemoryRouter>);  
         const btn = getByText('Login with Facebook');
         fireEvent.click(btn);
-        
+
+        const mockResponse = {
+                id: '1234567908',
+                first_name: 'Kishan',
+                last_name: 'Shetty',
+                email: 'kishancan@gmail.com',
+                picture: {
+                    data: {
+                        url: 'https://example.com/picture.jpg',
+                    },
+                },
+            };
+
     
-        const button = getByText('Login with Facebook');
-        fireEvent.click(button);
+
     
-        expect(window.FB.api).toHaveBeenCalledWith(
-            '/me',
-            'GET', 
-            {
+        // expect(window.FB.api).toHaveBeenCalledWith(
+        //     '/me',
+        //     'GET', 
+        //     {
+        //         locale: 'en_US', 
+        //         fields: 'id,first_name,last_name,email,picture',
+        //         access_token: localStorage.getItem('accessToken'),
+        //     },
+            
+        // );
+        // // expect(window.FB.api).toHaveBeenCalled();
+    
+        // expect(component.state('data')).toEqual(mockResponse);
+
+        window.FB.api = jest.fn((endpoint, method, params, callback)=> {
+            expect(endpoint).toBe('/me');
+            expect(method).toBe('GET');
+            expect(params).toEqual({
                 locale: 'en_US', 
                 fields: 'id,first_name,last_name,email,picture',
                 access_token: localStorage.getItem('accessToken'),
-            },
-            
-        );
-        // expect(window.FB.api).toHaveBeenCalled();
-    
-        expect(component.state('data')).toEqual(mockResponse);
+            });
+            callback(mockResponse);
+        });
+
+        await waitFor(() => expect(onLoginSuccessMock).toHaveBeenCalledWith(mockResponse, 'connected'));
     });
 
 
